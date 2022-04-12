@@ -25,11 +25,11 @@ public class TokenAccess {
                 //payload存储实际需要的数据
                 .claim("username",name)
                 .claim("role",role)
-                .setSubject("")
-                .setExpiration(new Date(System.currentTimeMillis()+ExpTime))
+                .setSubject("Myapplication")
+                .setExpiration(new Date(System.currentTimeMillis()+1000*60*30))
                 .setId(UUID.randomUUID().toString())
                 //signature定义签名信息
-                .signWith(SignatureAlgorithm.HS256,Sign)
+                .signWith(SignatureAlgorithm.HS256,"Myapplication")
                 .compact();
         return Token;
     }

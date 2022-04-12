@@ -6,10 +6,7 @@ import com.example.demo.service.LoginService;
 import com.example.demo.util.ApiResult;
 import com.example.demo.util.TokenAccess;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("auth")
@@ -19,8 +16,9 @@ public class LoginController {
 
 
     @GetMapping("login")
-    public ApiResult login(User user){
-      return loginservice.Login(user);
+    public ApiResult login(@RequestParam String username, @RequestParam String password){
+        User user = new User(username,password);
+        return loginservice.Login(user);
     }
 
     @PostMapping("regist")

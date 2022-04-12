@@ -25,6 +25,7 @@ public class LoginServiceImpl implements LoginService {
         if(nameFlag){
             if(pwdFlag){
                 Token token = new Token();
+                token.setUserName(name);
                 token.setToken(TokenAccess.genToken(name,pwd));
                 return ApiResult.success(token);
             }
