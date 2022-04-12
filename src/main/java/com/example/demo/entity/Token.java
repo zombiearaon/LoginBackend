@@ -1,16 +1,14 @@
 package com.example.demo.entity;
 
-public class LoginUser {
+public class Token {
     private String userName;
-    private String password;
     private String token;
 
-    public LoginUser() {
+    public Token() {
     }
 
-    public LoginUser(String userName, String password, String token) {
+    public Token(String userName, String token) {
         this.userName = userName;
-        this.password = password;
         this.token = token;
     }
 
@@ -21,13 +19,6 @@ public class LoginUser {
         this.userName = userName;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String getToken() {
         return token;
@@ -39,9 +30,8 @@ public class LoginUser {
 
     @Override
     public String toString() {
-        return "LoginUser{" +
+        return "Token{" +
                 "userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
                 ", token='" + token + '\'' +
                 '}';
     }

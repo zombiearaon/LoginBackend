@@ -1,41 +1,35 @@
 package com.example.demo.controller;
 
-
-import com.example.demo.entity.LoginUser;
-import com.example.demo.service.loginService;
+import com.example.demo.entity.Token;
+import com.example.demo.entity.User;
+import com.example.demo.service.LoginService;
+import com.example.demo.util.ApiResult;
 import com.example.demo.util.TokenAccess;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("user")
+@RequestMapping("auth")
 public class LoginController {
-
-    @PostMapping("login")
-    public LoginUser login(LoginUser user){
-        //查询用户信息
+    @Autowired
+    private LoginService loginservice;
 
 
-        String name = user.getUserName();
-        String pwd = user.getPassword();
-
-        // TODO: 2022/4/10 验证密码是否正确 
-        if(name.equals("")){
-            user.setToken(TokenAccess.genToken(name,pwd));
-            return user;
-        }
-        return null;
+    @GetMapping("login")
+    public ApiResult login(User user){
+      return loginservice.Login(user);
     }
 
     @PostMapping("regist")
-    public LoginUser regist(){
+    public ApiResult regist(){
         return null;
     }
 
     @PostMapping("checkToken")
-    public Boolean checkToken(LoginUser user){
+    public Boolean checkToken(Token user){
         String token = user.getToken();
         return TokenAccess.checkToken(token);
     }
