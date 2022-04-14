@@ -19,9 +19,12 @@ public class LoginServiceImpl implements LoginService {
         String name = user.getUserName();
         String pwd = user.getPassword();
         User dbuser = loginMapper.Login(name);
-        boolean nameFlag = dbuser.getUserName().equals(name);
-        boolean pwdFlag = dbuser.getPassword().equals(pwd);
-
+        Boolean nameFlag = false;
+        Boolean pwdFlag = false;
+        if(dbuser != null){
+            nameFlag = dbuser.getUserName().equals(name);
+            pwdFlag = pwd.equals(dbuser.getPassword());
+        }
         if(nameFlag){
             if(pwdFlag){
                 Token token = new Token();
@@ -32,5 +35,21 @@ public class LoginServiceImpl implements LoginService {
             return ApiResult.fail("密码不正确");
         }
         return ApiResult.fail("用户名不正确");
+    }
+
+    @Override
+    public ApiResult regist(User user) {
+        String name = user.getUserName();
+        String pwd = user.getPassword();
+        if(loginMapper.Login(name)!=null) {
+            return ApiResult.fail("用户名已被占用");
+        }else if(loginMapper.regist(name,pwd) != null){
+            Token token = new Token();
+            token.setUserName(name);
+            token.setToken(TokenAccess.genToken(name,pwd));
+            return  ApiResult.success("注册成功",token);
+        }else{
+            return  ApiResult.fail("未知错误");
+        }
     }
 }

@@ -5,4 +5,5 @@ import com.example.demo.util.ApiResult;
 
 public interface LoginService {
     ApiResult Login(User user);
+    ApiResult regist(User user);
 }

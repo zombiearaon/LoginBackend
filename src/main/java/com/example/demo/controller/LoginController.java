@@ -21,14 +21,9 @@ public class LoginController {
         return loginservice.Login(user);
     }
 
-    @PostMapping("regist")
-    public ApiResult regist(){
-        return null;
-    }
-
-    @PostMapping("checkToken")
-    public Boolean checkToken(Token user){
-        String token = user.getToken();
-        return TokenAccess.checkToken(token);
+    @GetMapping("regist")
+    public ApiResult regist(@RequestParam String username, @RequestParam String password){
+        User user = new User(username,password);
+        return loginservice.regist(user);
     }
 }

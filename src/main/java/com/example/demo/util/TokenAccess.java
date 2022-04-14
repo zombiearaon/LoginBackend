@@ -9,11 +9,6 @@ import java.util.Date;
 import java.util.UUID;
 
 public class TokenAccess {
-    @Value("${Token.ExpirationTime}")
-    private static long ExpTime;
-
-    @Value("${Token.Signature}")
-    private static String Sign;
 
 
     public static String genToken(String name,String role){
@@ -26,6 +21,7 @@ public class TokenAccess {
                 .claim("username",name)
                 .claim("role",role)
                 .setSubject("Myapplication")
+                //+后面的字符串是超时时间，这里设置30分钟
                 .setExpiration(new Date(System.currentTimeMillis()+1000*60*30))
                 .setId(UUID.randomUUID().toString())
                 //signature定义签名信息
