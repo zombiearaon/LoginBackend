@@ -12,5 +12,18 @@ class BackendApplicationTests {
 
     @Test
     void contextLoads() {
+        String a = "test";
+        System.out.println(methodtest(a));
+        System.out.println(a);
+    }
+
+    String methodtest(String a){
+        a = "NoTest";
+        return a;
+    }
+
+    @Test
+    void checkResponse(){
+
     }
 }

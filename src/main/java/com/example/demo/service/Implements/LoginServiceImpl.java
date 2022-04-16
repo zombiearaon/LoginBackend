@@ -29,7 +29,7 @@ public class LoginServiceImpl implements LoginService {
             if(pwdFlag){
                 Token token = new Token();
                 token.setUserName(name);
-                token.setToken(TokenAccess.genToken(name,pwd));
+                token.setToken(TokenAccess.genToken(name));
                 return ApiResult.success(token);
             }
             return ApiResult.fail("密码不正确");
@@ -46,10 +46,10 @@ public class LoginServiceImpl implements LoginService {
         }else if(loginMapper.regist(name,pwd) != null){
             Token token = new Token();
             token.setUserName(name);
-            token.setToken(TokenAccess.genToken(name,pwd));
+            token.setToken(TokenAccess.genToken(name));
             return  ApiResult.success("注册成功",token);
         }else{
-            return  ApiResult.fail("未知错误");
+            return ApiResult.fail("未知错误");
         }
     }
 }

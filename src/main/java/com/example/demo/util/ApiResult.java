@@ -16,6 +16,9 @@ public class ApiResult {
     /**
      * 构造方法
      */
+    public ApiResult (){
+    }
+
     public ApiResult(int code) {
         this.code = code;
     }

@@ -1,17 +1,13 @@
 package com.example.demo.util;
 
-import io.jsonwebtoken.JwtBuilder;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.beans.factory.annotation.Value;
+import io.jsonwebtoken.*;
 
 import java.util.Date;
 import java.util.UUID;
 
 public class TokenAccess {
 
-
-    public static String genToken(String name,String role){
+    public static String genToken(String name){
         JwtBuilder builder = Jwts.builder();
         String Token = builder
                 //Header加密算法和类型
@@ -19,7 +15,6 @@ public class TokenAccess {
                 .setHeaderParam("alg","HS256")
                 //payload存储实际需要的数据
                 .claim("username",name)
-                .claim("role",role)
                 .setSubject("Myapplication")
                 //+后面的字符串是超时时间，这里设置30分钟
                 .setExpiration(new Date(System.currentTimeMillis()+1000*60*30))
@@ -30,14 +25,18 @@ public class TokenAccess {
         return Token;
     }
 
-    public static boolean checkToken(String token){
-        if(token == null){
+    public static boolean checkToken(String token,String name){
+        if(StringUtil.NullOrEmpty(token)||StringUtil.NullOrEmpty(name)){
             return false;
         }
         try {
-            Jwts.parser().parseClaimsJws(token);
+            Jws<Claims> myapplication = Jwts.parser().setSigningKey("Myapplication").parseClaimsJws(token);
+            Claims claims = myapplication.getBody();
+            if(!claims.get("username").equals(name)){
+                return false;
+            }
+            System.out.println(myapplication);
         }catch (Exception e){
-            e.printStackTrace();
             return false;
         }
         return true;
