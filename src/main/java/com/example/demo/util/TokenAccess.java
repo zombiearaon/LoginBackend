@@ -10,10 +10,10 @@ public class TokenAccess {
     public static String genToken(String name){
         JwtBuilder builder = Jwts.builder();
         String Token = builder
-                //Header加密算法和类型
+                //Header-加密算法和类型
                 .setHeaderParam("typ","JWT")
                 .setHeaderParam("alg","HS256")
-                //payload存储实际需要的数据
+                //payload-存储实际需要的数据
                 .claim("username",name)
                 .setSubject("Myapplication")
                 //+后面的字符串是超时时间，这里设置30分钟

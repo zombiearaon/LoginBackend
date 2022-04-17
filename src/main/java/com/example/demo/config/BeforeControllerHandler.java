@@ -24,6 +24,7 @@ public class BeforeControllerHandler implements HandlerInterceptor {
         String userName = request.getHeader("userName");
         System.out.println("response:"+response);
         if(TokenAccess.checkToken(token,userName)){
+            response.setHeader("token",TokenAccess.genToken(userName));
             return true;
         }
         errorResponse(response,ApiResult.failToken("token失效"));
