@@ -13,14 +13,12 @@ public class LoginController {
     private LoginService loginservice;
 
     @PostMapping("login")
-    public ApiResult login(@RequestParam String username, @RequestParam String password){
-        User user = new User(username,password);
+    public ApiResult login(@RequestBody User user){
         return loginservice.Login(user);
     }
 
     @PostMapping("regist")
-    public ApiResult regist(@RequestParam String username, @RequestParam String password){
-        User user = new User(username,password);
+    public ApiResult regist(User user){
         return loginservice.regist(user);
     }
 }
