@@ -18,7 +18,7 @@ public class LoginController {
     }
 
     @PostMapping("regist")
-    public ApiResult regist(User user){
+    public ApiResult regist(@RequestBody User user){
         return loginservice.regist(user);
     }
 }

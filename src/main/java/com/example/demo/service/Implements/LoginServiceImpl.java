@@ -47,7 +47,7 @@ public class LoginServiceImpl implements LoginService {
             Token token = new Token();
             token.setUserName(name);
             token.setToken(TokenAccess.genToken(name));
-            return  ApiResult.success("注册成功",token);
+            return ApiResult.success("注册成功",token);
         }else{
             return ApiResult.fail("未知错误");
         }

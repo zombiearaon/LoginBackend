@@ -22,10 +22,6 @@ public class BeforeControllerHandler implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String token = request.getHeader("token");
         String userName = request.getHeader("userName");
-        System.out.println(request.toString());
-
-
-        System.out.println("response:"+response);
         if(TokenAccess.checkToken(token,userName)){
             response.setHeader("token",TokenAccess.genToken(userName));
             return true;
